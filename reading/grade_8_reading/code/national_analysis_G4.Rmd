@@ -1,0 +1,74 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+df <- read.csv('../clean_data/gap_list_year.csv')
+head(df)
+```
+
+```{r}
+df <- subset(df, select = -c(X) )
+df
+```
+
+```{r}
+colnames(df)[colnames(df) == "X2002"] = "2002"
+colnames(df)[colnames(df) == "X2003"] = "2003"
+colnames(df)[colnames(df) == "X2005"] = "2005"
+colnames(df)[colnames(df) == "X2007"] = "2007"
+colnames(df)[colnames(df) == "X2009"] = "2009"
+colnames(df)[colnames(df) == "X2011"] = "2011"
+colnames(df)[colnames(df) == "X2013"] = "2013"
+colnames(df)[colnames(df) == "X2015"] = "2015"
+colnames(df)[colnames(df) == "X2017"] = "2017"
+colnames(df)[colnames(df) == "X2019"] = "2019"
+colnames(df)[colnames(df) == "X2022"] = "2022"
+```
+```{r}
+df_states<-subset(df,Jurisdiction!='National')
+df_states
+```
+
+```{r}
+df_national<-subset(df,Jurisdiction=='National')
+df_national
+```
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+data_long <- pivot_longer(df_states, cols = -Jurisdiction, names_to = "Year", values_to = "Value")
+data_long$Year <-as.numeric( as.character(data_long$Year))
+yearly_stats <- data_long %>%
+  group_by(Year) %>%
+  summarise(Average = mean(Value), `Standard Deviation` = sd(Value))
+yearly_stats$Year <- as.numeric(as.character(yearly_stats$Year))
+
+p<-ggplot() +
+  geom_point(data = data_long, aes(x = Year, y = Value), alpha = 0.6) +
+  geom_line(data = yearly_stats, aes(x = Year, y = Average), color = "red") +
+  geom_ribbon(data = yearly_stats, aes(x = Year, ymin = Average - `Standard Deviation`, ymax = Average + `Standard Deviation`), alpha = 0.2, fill = "red") +
+  theme_minimal() +
+  labs(title = "Yearly Data with Averages and Standard Deviation Intervals", x = "Year", y = "Value")
+p
+
+```
+
+```{r}
+yearly_stats
+```
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+---
+title: "Alluvial_plot_reading"
+output: html_document
+date: "2024-04-02"
+---
+
+```{r}
+G4<-read.csv('grade_4_reading/clean_data/jurisdiction_clusters_G4.csv')
+G8<-read.csv('grade_8_reading/clean_data/jurisdiction_clusters_G8.csv')
+```
+```{r}
+head(G4)
+```
+```{r}
+# Combine df1 and df2 based on 'Jurisdiction'
+combined_df <- merge(G4, G8, by = "Jurisdiction")
+head(combined_df)
+```
+
+
+```{r}
+write.csv(combined_df, "jurisdiction_clusters_reading.csv", row.names = FALSE)
+```
+
+```{r}
+library(ggalluvial)
+library(ggplot2)
+library(tidyverse)
+```
+```{r}
+combined_df$count <- 1
+```
+```{r}
+ggplot(data = combined_df, aes(axis1 = G4_Cluster, axis2 = G8_Cluster, y = count)) +
+  geom_alluvium(aes(fill = factor(Jurisdiction))) +
+  geom_stratum() +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_x_discrete(limits = c("G4_Cluster", "G8_Cluster"), expand = c(0.05, 0)) +
+  theme_minimal() +
+  ggtitle("Jurisdiction Cluster Transitions from G4 to G8") +
+  xlab("Grade") +
+  ylab("Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+df1 <- subset(combined_df, G4_Cluster == 4 & G8_Cluster == 3)
+print(df1)
+```
+```{r}
+jurisdiction_to_region <- c(
+  "Alabama" = "South", "Alaska" = "West", "Arizona" = "West", "Arkansas" = "South",
+  "California" = "West", "Colorado" = "West", "Connecticut" = "Northeast", "Delaware" = "South",
+  "Florida" = "South", "Georgia" = "South", "Hawaii" = "West", "Idaho" = "West",
+  "Illinois" = "Midwest", "Indiana" = "Midwest", "Iowa" = "Midwest", "Kansas" = "Midwest",
+  "Kentucky" = "South", "Louisiana" = "South", "Maine" = "Northeast", "Maryland" = "South",
+  "Massachusetts" = "Northeast", "Michigan" = "Midwest", "Minnesota" = "Midwest",
+  "Mississippi" = "South", "Missouri" = "Midwest", "Montana" = "West", "Nebraska" = "Midwest",
+  "Nevada" = "West", "New Hampshire" = "Northeast", "New Jersey" = "Northeast", "New Mexico" = "West",
+  "New York" = "Northeast", "North Carolina" = "South", "North Dakota" = "Midwest", "Ohio" = "Midwest",
+  "Oklahoma" = "South", "Oregon" = "West", "Pennsylvania" = "Northeast", "Rhode Island" = "Northeast",
+  "South Carolina" = "South", "South Dakota" = "Midwest", "Tennessee" = "South", "Texas" = "South",
+  "Utah" = "West", "Vermont" = "Northeast", "Virginia" = "South", "Washington" = "West",
+  "West Virginia" = "South", "Wisconsin" = "Midwest", "Wyoming" = "West"
+)
+
+# Step 2: Use the mapping to add a Region column
+combined_df$Region <- jurisdiction_to_region[combined_df$Jurisdiction]
+combined_df <- combined_df[combined_df$Jurisdiction != 'National',]
+
+library(scales)
+generate_shades <- function(region, n) {
+  scales::hue_pal()(n)
+}
+combined_df <- combined_df %>%
+  arrange(Region, Jurisdiction) %>%
+  mutate(RegionJurisdiction = factor(paste(Region, Jurisdiction), levels = unique(paste(Region, Jurisdiction))))
+
+# Step 2: Use this new factor for the fill aesthetic
+color_palette <- scales::hue_pal()(length(unique(combined_df$RegionJurisdiction)))
+
+# Plotting with the correct number of colors
+ggplot(combined_df, aes(axis1 = G4_Cluster, axis2 = G8_Cluster, y = 1)) +
+  geom_alluvium(aes(fill = RegionJurisdiction)) +
+  geom_stratum() +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  scale_fill_manual(values = color_palette) +  # Use the generated color palette
+  scale_x_discrete(limits = c("G4_Cluster", "G8_Cluster"), expand = c(0.05, 0)) +
+  theme_minimal() +
+  ggtitle("Jurisdiction Cluster Transitions from G4 to G8") +
+  xlab("Grade") +
+  ylab("Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+

@@ -1,0 +1,217 @@
+﻿Year,States,Gender,Score
+2000,National,Male,227
+2000,National,Female,224
+2000,Alabama,Male,216
+2000,Alabama,Female,219
+2000,Alaska,Male,—
+2000,Alaska,Female,—
+2000,Arizona,Male,219
+2000,Arizona,Female,219
+2000,Arkansas,Male,216
+2000,Arkansas,Female,216
+2000,California,Male,212
+2000,California,Female,213
+2000,Colorado,Male,—
+2000,Colorado,Female,—
+2000,Connecticut,Male,235
+2000,Connecticut,Female,233
+2000,Delaware,Male,—
+2000,Delaware,Female,—
+2000,District of Columbia,Male,191
+2000,District of Columbia,Female,192
+2000,DoDEA,Male,229
+2000,DoDEA,Female,225
+2000,Florida,Male,—
+2000,Florida,Female,—
+2000,Georgia,Male,220
+2000,Georgia,Female,218
+2000,Hawaii,Male,215
+2000,Hawaii,Female,217
+2000,Idaho,Male,224
+2000,Idaho,Female,225
+2000,Illinois,Male,224
+2000,Illinois,Female,222
+2000,Indiana,Male,234
+2000,Indiana,Female,232
+2000,Iowa,Male,233
+2000,Iowa,Female,230
+2000,Kansas,Male,233
+2000,Kansas,Female,231
+2000,Kentucky,Male,220
+2000,Kentucky,Female,219
+2000,Louisiana,Male,219
+2000,Louisiana,Female,217
+2000,Maine,Male,232
+2000,Maine,Female,227
+2000,Maryland,Male,223
+2000,Maryland,Female,220
+2000,Massachusetts,Male,235
+2000,Massachusetts,Female,232
+2000,Michigan,Male,230
+2000,Michigan,Female,228
+2000,Minnesota,Male,236
+2000,Minnesota,Female,232
+2000,Mississippi,Male,210
+2000,Mississippi,Female,211
+2000,Missouri,Male,228
+2000,Missouri,Female,228
+2000,Montana,Male,231
+2000,Montana,Female,226
+2000,Nebraska,Male,225
+2000,Nebraska,Female,225
+2000,Nevada,Male,221
+2000,Nevada,Female,218
+2000,New Hampshire,Male,—
+2000,New Hampshire,Female,—
+2000,New Jersey,Male,—
+2000,New Jersey,Female,—
+2000,New Mexico,Male,216
+2000,New Mexico,Female,211
+2000,New York,Male,227
+2000,New York,Female,224
+2000,North Carolina,Male,230
+2000,North Carolina,Female,230
+2000,North Dakota,Male,231
+2000,North Dakota,Female,229
+2000,Ohio,Male,232
+2000,Ohio,Female,228
+2000,Oklahoma,Male,225
+2000,Oklahoma,Female,223
+2000,Oregon,Male,225
+2000,Oregon,Female,222
+2000,Pennsylvania,Male,—
+2000,Pennsylvania,Female,—
+2000,Puerto Rico,Male,—
+2000,Puerto Rico,Female,—
+2000,Rhode Island,Male,225
+2000,Rhode Island,Female,223
+2000,South Carolina,Male,221
+2000,South Carolina,Female,219
+2000,South Dakota,Male,—
+2000,South Dakota,Female,—
+2000,Tennessee,Male,221
+2000,Tennessee,Female,219
+2000,Texas,Male,233
+2000,Texas,Female,230
+2000,Utah,Male,227
+2000,Utah,Female,227
+2000,Vermont,Male,232
+2000,Vermont,Female,231
+2000,Virginia,Male,232
+2000,Virginia,Female,227
+2000,Washington,Male,—
+2000,Washington,Female,—
+2000,West Virginia,Male,224
+2000,West Virginia,Female,223
+2000,Wisconsin,Male,‡
+2000,Wisconsin,Female,‡
+2000,Wyoming,Male,230
+2000,Wyoming,Female,227
+2000_condition,National,Male,229
+2000_condition,National,Female,226
+2000_condition,Alabama,Male,217
+2000_condition,Alabama,Female,219
+2000_condition,Alaska,Male,—
+2000_condition,Alaska,Female,—
+2000_condition,Arizona,Male,220
+2000_condition,Arizona,Female,218
+2000_condition,Arkansas,Male,217
+2000_condition,Arkansas,Female,217
+2000_condition,California,Male,213
+2000_condition,California,Female,214
+2000_condition,Colorado,Male,—
+2000_condition,Colorado,Female,—
+2000_condition,Connecticut,Male,235
+2000_condition,Connecticut,Female,233
+2000_condition,Delaware,Male,—
+2000_condition,Delaware,Female,—
+2000_condition,District of Columbia,Male,193
+2000_condition,District of Columbia,Female,194
+2000_condition,DoDEA,Male,230
+2000_condition,DoDEA,Female,226
+2000_condition,Florida,Male,—
+2000_condition,Florida,Female,—
+2000_condition,Georgia,Male,220
+2000_condition,Georgia,Female,219
+2000_condition,Hawaii,Male,214
+2000_condition,Hawaii,Female,217
+2000_condition,Idaho,Male,227
+2000_condition,Idaho,Female,227
+2000_condition,Illinois,Male,227
+2000_condition,Illinois,Female,222
+2000_condition,Indiana,Male,235
+2000_condition,Indiana,Female,233
+2000_condition,Iowa,Male,235
+2000_condition,Iowa,Female,231
+2000_condition,Kansas,Male,232
+2000_condition,Kansas,Female,232
+2000_condition,Kentucky,Male,222
+2000_condition,Kentucky,Female,220
+2000_condition,Louisiana,Male,218
+2000_condition,Louisiana,Female,218
+2000_condition,Maine,Male,232
+2000_condition,Maine,Female,229
+2000_condition,Maryland,Male,223
+2000_condition,Maryland,Female,221
+2000_condition,Massachusetts,Male,237
+2000_condition,Massachusetts,Female,233
+2000_condition,Michigan,Male,232
+2000_condition,Michigan,Female,230
+2000_condition,Minnesota,Male,237
+2000_condition,Minnesota,Female,233
+2000_condition,Mississippi,Male,210
+2000_condition,Mississippi,Female,211
+2000_condition,Missouri,Male,229
+2000_condition,Missouri,Female,228
+2000_condition,Montana,Male,232
+2000_condition,Montana,Female,228
+2000_condition,Nebraska,Male,227
+2000_condition,Nebraska,Female,225
+2000_condition,Nevada,Male,222
+2000_condition,Nevada,Female,218
+2000_condition,New Hampshire,Male,—
+2000_condition,New Hampshire,Female,—
+2000_condition,New Jersey,Male,—
+2000_condition,New Jersey,Female,—
+2000_condition,New Mexico,Male,216
+2000_condition,New Mexico,Female,212
+2000_condition,New York,Male,228
+2000_condition,New York,Female,225
+2000_condition,North Carolina,Male,234
+2000_condition,North Carolina,Female,231
+2000_condition,North Dakota,Male,233
+2000_condition,North Dakota,Female,229
+2000_condition,Ohio,Male,233
+2000_condition,Ohio,Female,228
+2000_condition,Oklahoma,Male,226
+2000_condition,Oklahoma,Female,224
+2000_condition,Oregon,Male,229
+2000_condition,Oregon,Female,224
+2000_condition,Pennsylvania,Male,—
+2000_condition,Pennsylvania,Female,—
+2000_condition,Puerto Rico,Male,—
+2000_condition,Puerto Rico,Female,—
+2000_condition,Rhode Island,Male,225
+2000_condition,Rhode Island,Female,224
+2000_condition,South Carolina,Male,221
+2000_condition,South Carolina,Female,220
+2000_condition,South Dakota,Male,—
+2000_condition,South Dakota,Female,—
+2000_condition,Tennessee,Male,222
+2000_condition,Tennessee,Female,218
+2000_condition,Texas,Male,235
+2000_condition,Texas,Female,231
+2000_condition,Utah,Male,227
+2000_condition,Utah,Female,228
+2000_condition,Vermont,Male,232
+2000_condition,Vermont,Female,231
+2000_condition,Virginia,Male,233
+2000_condition,Virginia,Female,228
+2000_condition,Washington,Male,—
+2000_condition,Washington,Female,—
+2000_condition,West Virginia,Male,226
+2000_condition,West Virginia,Female,223
+2000_condition,Wisconsin,Male,‡
+2000_condition,Wisconsin,Female,‡
+2000_condition,Wyoming,Male,230
+2000_condition,Wyoming,Female,228

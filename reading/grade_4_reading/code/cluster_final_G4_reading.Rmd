@@ -1,0 +1,215 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+# no 2000
+
+```{r}
+library(dtwclust)
+library(dtw)
+```
+
+
+
+```{r}
+df<-read.csv("../clean_data/gap_list_year.csv")
+df
+```
+```{r}
+df <- subset(df, select = -c(X) )
+df
+```
+
+```{r}
+colnames(df)[colnames(df) == "X2002"] = "2002"
+colnames(df)[colnames(df) == "X2003"] = "2003"
+colnames(df)[colnames(df) == "X2005"] = "2005"
+colnames(df)[colnames(df) == "X2007"] = "2007"
+colnames(df)[colnames(df) == "X2009"] = "2009"
+colnames(df)[colnames(df) == "X2011"] = "2011"
+colnames(df)[colnames(df) == "X2013"] = "2013"
+colnames(df)[colnames(df) == "X2015"] = "2015"
+colnames(df)[colnames(df) == "X2017"] = "2017"
+colnames(df)[colnames(df) == "X2019"] = "2019"
+colnames(df)[colnames(df) == "X2022"] = "2022"
+```
+```{r}
+df
+```
+
+
+```{r}
+jurisdiction = df[['Jurisdiction']]
+```
+```{r}
+dtw_df <- df[, -1]
+```
+
+
+```{r}
+dtw_df
+```
+
+
+```{r}
+df_lst <- tslist(dtw_df)
+```
+```{r}
+remove_nan <- function(ts) {
+  ts[!is.na(ts)]
+}
+
+# Apply the function to each time series in the list
+df_lst <- lapply(df_lst, remove_nan)
+```
+```{r}
+head(df_lst)
+```
+
+## index score evaluation
+
+```{r}
+df_cvi <- list()
+for (i in 2:10){
+  df_clust <- tsclust(df_lst, type = "partitional", k = i, distance = "dtw_basic", centroid = "pam")
+  df_metric <- cvi(df_clust, type = "valid", log.base = 10)
+  df_cvi <- append(df_cvi, list(df_metric))
+}
+```
+
+```{r}
+df_cvi_ma <- do.call(rbind, df_cvi)
+rw <- c("K2","K3","K4","K5","K6","K7","K8","K9","K10")
+rownames(df_cvi_ma) <- rw
+print(df_cvi_ma)
+```
+– "Sil" (!): Silhouette index (Rousseeuw (1987); to be maximized).-K4
+– "SF" (~): Score Function (Saitta et al. (2007); to be maximized; see notes).
+– "CH" (~): Calinski-Harabasz index (Arbelaitz et al. (2013); to be maximized).-k3
+– "DB" (?): Davies-Bouldin index (Arbelaitz et al. (2013); to be minimized).k4
+– "DBstar" (?): Modified Davies-Bouldin index (DB*) (Kim and Ramakrishna (2005); to be minimized). -k4
+– "D" (!): Dunn index (Arbelaitz et al. (2013); to be maximized). k5
+– "COP" (!): COP index (Arbelaitz et al. (2013); to be minimized). k9
+
+# different seeds index score result
+
+```{r}
+df_cvi2 <- list()
+for (i in 1:100){
+  df_clust2 <- tsclust(df_lst, type = "partitional", k = 4, distance = "dtw_basic", centroid = "pam", seed=i)
+  df_metric2 <- cvi(df_clust2, type = "valid", log.base = 10)
+  df_cvi2 <- append(df_cvi2, list(df_metric2))
+}
+df_cvi_ma2 <- do.call(rbind, df_cvi2)
+rw2 <- as.character(seq(1, 100))
+rownames(df_cvi_ma2) <- rw2
+print(df_cvi_ma2)
+```
+
+## Cluster evaluation
+
+```{r}
+for (i in 2:10){df_clust_opt <- tsclust(df_lst, type = "partitional", k = i, distance = "dtw", centroid = "pam",seed = 700)
+plot(df_clust_opt)}
+```
+
+
+## Seeds Evaluation
+
+```{r}
+# for (i in 1:10){df_clust_opt_final <- tsclust(df_lst, type = "partitional", k = 4, distance = "dtw", centroid = "pam",seed = i)
+# plot(df_clust_opt_final)}
+```
+```{r}
+# for (i in 11:20){df_clust_opt_final <- tsclust(df_lst, type = "partitional", k = 4, distance = "dtw", centroid = "pam",seed = i)
+# plot(df_clust_opt_final)}
+```
+
+
+## We using cluster=4
+```{r}
+#k4
+df_clust_opt_final <- tsclust(df_lst, type = "partitional", k = 4, distance = "dtw", centroid = "pam",seed = 700)
+plot(df_clust_opt_final)
+```
+
+## Plot detailed clusters
+```{r}
+# Extract cluster assignments
+cluster_assignments <- df_clust_opt_final@cluster
+
+# Determine the number of clusters
+num_clusters <- max(cluster_assignments)
+
+# Loop through each cluster and print the jurisdictions in it
+for (cluster_number in 1:num_clusters) {
+  cat("Jurisdictions in Cluster", cluster_number, ":\n")
+  
+  # Find the indices of jurisdictions in this cluster
+  indices_in_cluster <- which(cluster_assignments == cluster_number)
+  
+  # Print the jurisdictions corresponding to these indices
+  print(jurisdiction[indices_in_cluster])
+  
+  cat("\n") # Add a newline for readability
+}
+```
+```{r}
+# Create an empty dataframe to store the results
+jurisdiction_clusters <- data.frame(Jurisdiction = character(), G4_Cluster = numeric(), stringsAsFactors = FALSE)
+
+# Loop through each cluster and append the jurisdictions and their cluster number to the dataframe
+for (cluster_number in 1:num_clusters) {
+  # Find the indices of jurisdictions in this cluster
+  indices_in_cluster <- which(cluster_assignments == cluster_number)
+  
+  # Extract the jurisdictions corresponding to these indices
+  jurisdictions_in_cluster <- jurisdiction[indices_in_cluster]
+  
+  # Create a temporary dataframe for this cluster
+  temp_df <- data.frame(Jurisdiction = jurisdictions_in_cluster, G4_Cluster = rep(cluster_number, length(jurisdictions_in_cluster)), stringsAsFactors = FALSE)
+  
+  # Append the temporary dataframe to the main dataframe
+  jurisdiction_clusters <- rbind(jurisdiction_clusters, temp_df)
+}
+
+# Export the dataframe to a CSV file
+write.csv(jurisdiction_clusters, "../clean_data/jurisdiction_clusters_G4.csv", row.names = FALSE)
+# View the resulting dataframe
+print(jurisdiction_clusters)
+```
+
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(reshape2)
+
+# Loop through each cluster
+for (cluster_number in 1:num_clusters) {
+  cat("Plotting jurisdictions in Cluster", cluster_number, ":\n")
+  
+  # Find the indices of jurisdictions in this cluster
+  indices_in_cluster <- which(cluster_assignments == cluster_number)
+  
+  # Get the names of the jurisdictions in this cluster
+  jurisdictions_in_cluster <- jurisdiction[indices_in_cluster]
+  
+  # Filter the gap_list_year data frame for these jurisdictions
+  cluster_data <- df[df$Jurisdiction %in% jurisdictions_in_cluster, ]
+  
+  # Convert the data to long format for ggplot
+  long_df <- melt(cluster_data, id.vars = "Jurisdiction", variable.name = "Year", value.name = "Value")
+  
+  # Plot
+  p <- ggplot(long_df, aes(x = Year, y = Value, group = Jurisdiction, color = Jurisdiction)) +
+    geom_line() +
+    labs(title = paste("Cluster", cluster_number), x = "Year", y = "Gap") +
+    theme(legend.position = "right")
+  
+  print(p)
+
+  #ggsave(paste("cluster_", cluster_number, ".png", sep=""), plot = p)
+}
+```
+
